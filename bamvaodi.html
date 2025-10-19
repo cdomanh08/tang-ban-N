@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gửi bạn N giấu tên</title>
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@500&display=swap&subset=vietnamese" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      background: linear-gradient(135deg, #ffe4ec, #ffd6f0);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      font-family: 'Dancing Script', cursive;
+      overflow: hidden;
+      transition: background 1s ease-in-out;
+    }
+    h1 {
+      color: #d63384;
+      font-size: 2.5em;
+      margin-bottom: 25px;
+      text-shadow: 1px 1px 4px #fff;
+      opacity: 0;
+      transform: translateY(-20px);
+      animation: fadeSlideIn 1.5s ease forwards;
+    }
+    button {
+      background: #ff7eb9;
+      color: white;
+      border: none;
+      padding: 12px 28px;
+      font-size: 1.2em;
+      border-radius: 40px;
+      cursor: pointer;
+      transition: all 0.4s ease;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+    button:hover {
+      background: #ff4fa3;
+      transform: scale(1.08);
+      box-shadow: 0 6px 15px rgba(255,79,163,0.3);
+    }
+    #message, #more {
+      margin-top: 25px;
+      color: #b4005f;
+      font-size: 1.5em;
+      text-align: center;
+      width: 80%;
+      max-width: 650px;
+      display: none;
+      opacity: 0;
+      white-space: pre-line;
+      transition: opacity 1.5s ease;
+    }
+    @keyframes fadeSlideIn {
+      from { opacity: 0; transform: translateY(-20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .flower {
+      position: absolute;
+      top: -50px;
+      animation: fall linear forwards;
+      opacity: 0.9;
+    }
+
+    @keyframes fall {
+      0% { transform: translateY(0) rotate(0deg) scale(1); opacity: 1; }
+      50% { transform: translateY(50vh) rotate(180deg) scale(1.2); }
+      100% { transform: translateY(100vh) rotate(360deg) scale(1); opacity: 0; }
+    }
+  </style>
+</head>
+<body>
+  <h1>💐 Chúc mừng ngày phụ nữ Việt Nam 💐</h1>
+  <button onclick="showMessage()">Nhân ngày 20/10</button>
+  
+  <div id="message">
+    Gửi bạn Phùng Thảo Nguyên xinh lùn đáng yêu. 
+    Nhân ngày 20/10, chúc em luôn xinh đẹp, yêu đời, học giỏi.
+    Mong em không tiết kiệm nụ cười, không lười khoe nhan sắc 
+    và sẽ luôn thành công với những gì em chọn.
+  </div>
+
+  <button id="continueBtn" style="display:none; margin-top:15px;" onclick="showMore()">Nếu em không ghét anh ...</button>
+
+  <div id="more"></div>
+
+  <button id="flowerBtn" style="display:none; margin-top:20px;" onclick="goToFlower()">Tặng em đóa hoa nè 🌹</button>
+
+  <script>
+    function fadeInElement(el) {
+      el.style.display = "block";
+      setTimeout(() => el.style.opacity = 1, 50);
+    }
+
+    function showMessage() {
+      fadeInElement(document.querySelector("#message"));
+      fadeInElement(document.querySelector("#continueBtn"));
+      startFlowers();
+    }
+
+    function showMore() {
+      const more = document.querySelector("#more");
+      fadeInElement(more);
+      document.querySelector("#continueBtn").style.display = "none";
+      more.textContent =
+        "anh mong được thân với em hơn,\n" +
+        "hiểu về em nhiều hơn,\n" +
+        "cho phép anh làm phiền em nhé?";
+
+      setTimeout(() => fadeInElement(document.querySelector("#flowerBtn")), 2000);
+    }
+
+    function goToFlower() {
+      window.location.href = "flower.html";
+    }
+
+    const flowerTypes = ["🌸", "🌼", "💮", "🌻", "🌺", "🌷"];
+    function startFlowers() {
+      setInterval(() => {
+        const flower = document.createElement("div");
+        flower.classList.add("flower");
+        flower.innerHTML = flowerTypes[Math.floor(Math.random() * flowerTypes.length)];
+        flower.style.left = Math.random() * 100 + "vw";
+        flower.style.fontSize = 18 + Math.random() * 20 + "px";
+        flower.style.animationDuration = 4 + Math.random() * 4 + "s";
+        flower.style.filter = `hue-rotate(${Math.random() * 80 - 40}deg)`;
+        flower.style.transition = "transform 2s ease-in-out";
+        document.body.appendChild(flower);
+        setTimeout(() => flower.remove(), 7000);
+      }, 250);
+    }
+  </script>
+</body>
+</html>
