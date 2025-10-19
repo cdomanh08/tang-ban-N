@@ -7,21 +7,34 @@
   <style>
     body {
       margin: 0;
+      padding: 0 10px;
       height: 100vh;
       background: radial-gradient(circle at center, #f8a9c1 0%, #f3b5c7 40%, #f8bcd2 100%);
       display: flex;
       justify-content: center;
       align-items: center;
+      flex-direction: column;
       overflow: hidden;
       animation: fadeIn 2s ease;
+      font-family: 'Dancing Script', cursive;
     }
 
     img {
-      width: 320px;
-      max-width: 85%;
+      width: 330px;
+      max-width: 90%;
       border-radius: 10px;
       animation: zoomIn 2.5s ease forwards;
       box-shadow: 0 0 20px rgba(255, 192, 203, 0.6);
+    }
+
+    h2 {
+      margin-top: 25px;
+      font-size: 1.6em;
+      color: #b4005f;
+      text-align: center;
+      text-shadow: 1px 1px 3px #fff;
+      animation: fadeIn 3s ease;
+      line-height: 1.4;
     }
 
     @keyframes zoomIn {
@@ -34,18 +47,52 @@
       to { opacity: 1; }
     }
 
-    h2 {
+    /* 🌸 Hoa rơi nhẹ */
+    .flower {
       position: absolute;
-      bottom: 25px;
-      font-size: 1.6em;
-      color: #b4005f;
-      text-shadow: 1px 1px 3px #fff;
-      animation: fadeIn 3s ease;
+      top: -50px;
+      font-size: 18px;
+      animation: fall linear forwards;
+      opacity: 0.9;
+      pointer-events: none;
+    }
+
+    @keyframes fall {
+      0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+      100% { transform: translateY(100vh) rotate(360deg); opacity: 0; }
+    }
+
+    /* 📱 Responsive cho điện thoại nhỏ */
+    @media (max-width: 480px) {
+      h2 {
+        font-size: 1.3em;
+        margin-top: 20px;
+      }
+      img {
+        width: 270px;
+      }
     }
   </style>
 </head>
 <body>
   <img src="hoa.png" alt="Đóa hoa tặng em">
   <h2>Tiếc quá, anh chưa tìm được bông hoa nào đẹp hơn ...</h2>
+
+  <script>
+    const flowerTypes = ["🌸", "🌼", "💮", "🌺", "🌷"];
+    function startFlowers() {
+      setInterval(() => {
+        const flower = document.createElement("div");
+        flower.classList.add("flower");
+        flower.innerHTML = flowerTypes[Math.floor(Math.random() * flowerTypes.length)];
+        flower.style.left = Math.random() * 100 + "vw";
+        flower.style.fontSize = 14 + Math.random() * 20 + "px";
+        flower.style.animationDuration = 4 + Math.random() * 4 + "s";
+        document.body.appendChild(flower);
+        setTimeout(() => flower.remove(), 8000);
+      }, 400);
+    }
+    startFlowers();
+  </script>
 </body>
 </html>
